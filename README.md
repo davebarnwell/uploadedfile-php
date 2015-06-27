@@ -1,6 +1,8 @@
 uploadedfile
 ============
 
+[![Build Status](https://scrutinizer-ci.com/g/freshsauce/uploadedfile-php/badges/build.png?b=master)](https://scrutinizer-ci.com/g/freshsauce/uploadedfile-php/build-status/master) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/freshsauce/uploadedfile-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/freshsauce/uploadedfile-php/?branch=master)
+
 Handle an uploaded file
 
     try {
