@@ -5,6 +5,7 @@
  * @property int size
  * @property string name
  * @property string tmp_name
+ * @property string type
  * @author Dave Barnwell <dave@freshsauce.co.uk>
  */
 class UploadedFile {
@@ -26,7 +27,7 @@ class UploadedFile {
    * @param array $allowed_types_user defauts to images, throws error if mime type is not in array
    * @param string $max_size if provided throws an error if the file is larger in bytes
    */
-  function __construct($formFileName, $allowed_types_user = null, $max_size = null)
+  public function __construct($formFileName, $allowed_types_user = null, $max_size = null)
   {
     if ($allowed_types_user === null || !is_array($allowed_types_user)) {
       $allowed_types_user = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
@@ -141,4 +142,5 @@ class UploadedFile {
     return move_uploaded_file($this->tmp_name, $path.$name);
   }
 }
-?>
+
+
