@@ -3,6 +3,8 @@
  * handles saving uploaded files, typically images, but will handle all file types
  *
  * @property int size
+ * @property string name
+ * @property string tmp_name
  * @author Dave Barnwell <dave@freshsauce.co.uk>
  */
 class UploadedFile {
@@ -26,7 +28,7 @@ class UploadedFile {
    */
   function __construct($formFileName, $allowed_types_user = null, $max_size = null)
   {
-    if ($allowed_types_user == null || !is_array($allowed_types_user)) {
+    if ($allowed_types_user === null || !is_array($allowed_types_user)) {
       $allowed_types_user = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
     }
     $this->allowed_types = $allowed_types_user;
@@ -45,7 +47,7 @@ class UploadedFile {
         if (!in_array($this->image_type, $this->allowed_types)) {
           throw new Exception("Invalid image type[{$this->image_type}]", 1);
         }
-        if ($max_size && $this->size > $max_size) {
+        if ($max_size !== NULL && $this->size > $max_size) {
           throw new Exception("Invalid file size[{$this->size}]", 1);
         }
       } else {
@@ -103,17 +105,13 @@ class UploadedFile {
     return $this->uploadFile[$name];
   }
   
-  public function dump() {
-    var_dump($this->uploadFile);
-  }
-  
   public function getSize() {
     return $this->size;
   }
 
   public function getRawType() {
-    list($w, $h, $type) = getimagesize($this->uploadFile->tmp_name);
-    return $type;
+    $info = getimagesize($this->uploadFile->tmp_name);
+    return $info[2];
   }
 
   public function getType() {
@@ -128,7 +126,7 @@ class UploadedFile {
    * @return bool
    */
   public function save($path, $name = null) {
-    if ($name == null) {
+    if ($name === null) {
       $name = $this->name; // pull user provided name from image upload; Dont trust user provided names!
     }
     if (strlen($path) == 0) {
