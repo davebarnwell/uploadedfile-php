@@ -2,6 +2,7 @@
 /**
  * handles saving uploaded files, typically images, but will handle all file types
  *
+ * @property int size
  * @author Dave Barnwell <dave@freshsauce.co.uk>
  */
 class UploadedFile {
@@ -73,28 +74,20 @@ class UploadedFile {
       switch($this->uploadFile['error']) {
         case UPLOAD_ERR_INI_SIZE:
           throw new Exception('File to large');
-          break;
         case UPLOAD_ERR_FORM_SIZE:
           throw new Exception('Form data to large');
-          break;
         case UPLOAD_ERR_PARTIAL:
           throw new Exception('The file only partially uploaded');
-          break;
         case UPLOAD_ERR_NO_FILE:
           throw new Exception('No file was uploaded');
-          break;
         case UPLOAD_ERR_NO_TMP_DIR:
           throw new Exception('No temporary directory');
-          break;
         case UPLOAD_ERR_CANT_WRITE:
           throw new Exception('Can\'t write uploaded file to disk');
-          break;
         case UPLOAD_ERR_EXTENSION:
           throw new Exception('An extension stopped the upload');
-          break;
         default:
           throw new Exception('File did not upload sucessfully');
-          break;
       }
     }
     return false;
